@@ -45,7 +45,7 @@ public final class VirtualWorld extends PApplet {
     public void setup() {
         parseCommandLine(ARGS);
         loadImages(IMAGE_LIST_FILE_NAME);
-        scaleImages(imageStore, scale);
+        scaleImages();
         loadWorld(loadFile, this.imageStore);
 
         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world, TILE_WIDTH, TILE_HEIGHT);
@@ -130,7 +130,7 @@ public final class VirtualWorld extends PApplet {
         }
     }
 
-    public void scaleImages(ImageStore img, double scale) {
+    public void scaleImages() {
         for (PImage imgs: imageStore.getAllImages()) {
             imgs.resize((int) (imgs.width*scale), (int) (imgs.height*scale));
         }
