@@ -35,9 +35,9 @@ public final class Functions {
     private static final int SAPLING_HEALTH = 0;
     private static final int SAPLING_NUM_PROPERTIES = 1;
 
-    private static final String OBSTACLE_KEY = "obstacle";
-    private static final int OBSTACLE_ANIMATION_PERIOD = 0;
-    private static final int OBSTACLE_NUM_PROPERTIES = 1;
+    private static final String WATER_KEY = "water";
+    private static final int WATER_ANIMATION_PERIOD = 0;
+    private static final int WATER_NUM_PROPERTIES = 1;
 
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_ACTION_PERIOD = 0;
@@ -120,12 +120,12 @@ public final class Functions {
         }
     }
 
-    public static void parseObstacle(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
-        if (properties.length == OBSTACLE_NUM_PROPERTIES) {
-            Entity entity = createObstacle(id, pt, Double.parseDouble(properties[OBSTACLE_ANIMATION_PERIOD]), imageStore.getImageList(OBSTACLE_KEY));
+    public static void parseWater(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
+        if (properties.length == WATER_NUM_PROPERTIES) {
+            Entity entity = createWater(id, pt, Double.parseDouble(properties[WATER_ANIMATION_PERIOD]), imageStore.getImageList(WATER_KEY));
             world.tryAddEntity(entity);
         }else{
-            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", OBSTACLE_KEY, OBSTACLE_NUM_PROPERTIES));
+            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", WATER_KEY, WATER_NUM_PROPERTIES));
         }
     }
 
@@ -217,7 +217,7 @@ public final class Functions {
         return new House(id, position, images);
     }
 
-    public static Entity createObstacle(String id, Point position, double animationPeriod, List<PImage> images) {
+    public static Entity createWater(String id, Point position, double animationPeriod, List<PImage> images) {
         return new Water(id, position, images, animationPeriod);
     }
 
@@ -260,7 +260,7 @@ public final class Functions {
                     new String[0] : properties[Functions.ENTITY_NUM_PROPERTIES].split(" ");
 
             switch (key) {
-                case Functions.OBSTACLE_KEY -> Functions.parseObstacle(world, properties, pt, id, imageStore);
+                case Functions.WATER_KEY -> Functions.parseWater(world, properties, pt, id, imageStore);
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
                 case Functions.HOUSE_KEY -> Functions.parseHouse(world, properties, pt, id, imageStore);

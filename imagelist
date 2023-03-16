@@ -1,9 +1,9 @@
 house images/house.png 255 255 255 0
-obstacle images/water0.png
-obstacle images/water1.png
-obstacle images/water2.png
-obstacle images/water1.png
-obstacle images/water0.png
+water images/water0.png
+water images/water1.png
+water images/water2.png
+water images/water1.png
+water images/water0.png
 grass images/grass.png
 flowers images/flowers.png
 background_default images/none.bmp

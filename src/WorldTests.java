@@ -24,12 +24,12 @@ public class WorldTests {
     }
 
     @Test
-    public void testObstacleAnimation() {
-        String sav = makeSave(1, 1, "obstacle myobstacle 0 0 0.500");
+    public void testWaterAnimation() {
+        String sav = makeSave(1, 1, "water mywater 0 0 0.500");
         List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 8);
 
         assertEquals(1, entities.size());
-        assertEquals("myobstacle 0 0 16", entities.get(0));
+        assertEquals("mywater 0 0 16", entities.get(0));
     }
 
     @Test
@@ -143,7 +143,7 @@ public class WorldTests {
 
     @Test
     public void testDudePathing() {
-        String sav = makeSave(15, 20, "dude mydude 10 9 1.000 100.0 1", "obstacle  11 11 1.126", "obstacle  10 12 1.126", "obstacle  9 11 1.126", "tree  10 14 0.250 1.150 2", "tree  0 0 0.250 1.150 2", "house  10 8");
+        String sav = makeSave(15, 20, "dude mydude 10 9 1.000 100.0 1", "water  11 11 1.126", "water  10 12 1.126", "water  9 11 1.126", "tree  10 14 0.250 1.150 2", "tree  0 0 0.250 1.150 2", "house  10 8");
         List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 8);
 
         assertEquals(1, entities.size());
