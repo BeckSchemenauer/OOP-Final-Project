@@ -7,10 +7,10 @@ import processing.core.*;
 public final class VirtualWorld extends PApplet {
     private static String[] ARGS;
 
-    private static final int VIEW_WIDTH = 640;
-    private static final int VIEW_HEIGHT = 480;
-    private static final int TILE_WIDTH = 32;
-    private static final int TILE_HEIGHT = 32;
+    private static final int VIEW_WIDTH = 900;
+    private static final int VIEW_HEIGHT = 675;
+    private static final int TILE_WIDTH = 75;
+    private static final int TILE_HEIGHT = 75;
     private static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
     private static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
 
