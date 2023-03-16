@@ -53,6 +53,11 @@ public final class Functions {
     private static final int MRBEAST_ACTION_PERIOD = 1;
     private static final int MRBEAST_NUM_PROPERTIES = 2;
 
+    private static final String TRASH_KEY = "trash";
+    private static final int TRASH_ANIMATION_PERIOD = 0;
+    private static final int TRASH_ACTION_PERIOD = 1;
+    private static final int TRASH_NUM_PROPERTIES = 2;
+
     private static final String TREE_KEY = "tree";
     private static final int TREE_ANIMATION_PERIOD = 0;
     private static final int TREE_ACTION_PERIOD = 1;
@@ -108,6 +113,15 @@ public final class Functions {
             world.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", MRBEAST_KEY, MRBEAST_NUM_PROPERTIES));
+        }
+    }
+
+    public static void parseTrash(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
+        if (properties.length == TRASH_NUM_PROPERTIES) {
+            Entity entity = createTrash(id, pt, Double.parseDouble(properties[TRASH_ACTION_PERIOD]), Double.parseDouble(properties[TRASH_ANIMATION_PERIOD]), imageStore.getImageList(TRASH_KEY));
+            world.tryAddEntity(entity);
+        }else{
+            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", TRASH_KEY, TRASH_NUM_PROPERTIES));
         }
     }
 
@@ -239,6 +253,10 @@ public final class Functions {
         return new MrBeast(id, position, images, actionPeriod, animationPeriod);
     }
 
+    public static Entity createTrash(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        return new Trash(id, position, images, actionPeriod, animationPeriod);
+    }
+
     // need resource count, though it always starts at 0
     public static Entity createDudeNotFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
         return new DudeNotFull(id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0);
@@ -263,6 +281,7 @@ public final class Functions {
                 case Functions.WATER_KEY -> Functions.parseWater(world, properties, pt, id, imageStore);
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
+                case Functions.TRASH_KEY -> Functions.parseTrash(world, properties, pt, id, imageStore);
                 case Functions.HOUSE_KEY -> Functions.parseHouse(world, properties, pt, id, imageStore);
                 case Functions.TREE_KEY -> Functions.parseTree(world, properties, pt, id, imageStore);
                 case Functions.SAPLING_KEY -> Functions.parseSapling(world, properties, pt, id, imageStore);
@@ -324,6 +343,12 @@ public final class Functions {
 
     public static String getSaplingKey() {
         return SAPLING_KEY;
+    }
+    public static String getWaterKey() {
+        return WATER_KEY;
+    }
+    public static int getWaterAnimationPeriod() {
+        return WATER_ANIMATION_PERIOD;
     }
 
     public static String getTreeKey() {

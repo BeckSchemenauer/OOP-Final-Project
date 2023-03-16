@@ -42,7 +42,6 @@ public final class MrBeast extends Animate {
 
     public boolean moveToMrBeast(WorldModel world, Point target, EventScheduler scheduler) {
         if (Functions.adjacent(getPosition(), target)) {
-            System.out.println("Success?");
             return true;
         }else{
             Point nextPos = nextPositionMrBeast(world, target);
