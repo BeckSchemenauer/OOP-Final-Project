@@ -7,11 +7,11 @@ import processing.core.*;
 public final class VirtualWorld extends PApplet {
     private static String[] ARGS;
 
-    private static final double scale = .5;
-    private static final int VIEW_WIDTH = 900;
-    private static final int VIEW_HEIGHT = 675;
+    private static final double scale = 0.75;
     private static final int TILE_WIDTH = (int) (75*scale);
     private static final int TILE_HEIGHT = (int) (75*scale);
+    private static final int VIEW_WIDTH = Math.round(900/TILE_WIDTH)*TILE_WIDTH;
+    private static final int VIEW_HEIGHT = Math.round(675/TILE_HEIGHT)*TILE_HEIGHT;
     private static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
     private static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
 
@@ -45,7 +45,7 @@ public final class VirtualWorld extends PApplet {
     public void setup() {
         parseCommandLine(ARGS);
         loadImages(IMAGE_LIST_FILE_NAME);
-        scaleImages(imageStore, scale);
+        scaleImages();
         loadWorld(loadFile, this.imageStore);
 
         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world, TILE_WIDTH, TILE_HEIGHT);
@@ -130,7 +130,7 @@ public final class VirtualWorld extends PApplet {
         }
     }
 
-    public void scaleImages(ImageStore img, double scale) {
+    public void scaleImages() {
         for (PImage imgs: imageStore.getAllImages()) {
             imgs.resize((int) (imgs.width*scale), (int) (imgs.height*scale));
         }
