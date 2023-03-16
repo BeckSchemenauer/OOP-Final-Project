@@ -218,7 +218,7 @@ public final class Functions {
     }
 
     public static Entity createObstacle(String id, Point position, double animationPeriod, List<PImage> images) {
-        return new Obstacle(id, position, images, animationPeriod);
+        return new Water(id, position, images, animationPeriod);
     }
 
     public static Entity createTree(String id, Point position, double actionPeriod, double animationPeriod, int health, List<PImage> images) {
