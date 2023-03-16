@@ -17,7 +17,6 @@ public final class MrBeast extends Animate {
         this.actionPeriod = actionPeriod;
         clicked = false;
         target = null;
-        //YOOOOOOOOOOOOOOOOOOO
     }
 
     public void executeMrBeastActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
@@ -43,7 +42,7 @@ public final class MrBeast extends Animate {
 
     public boolean moveToMrBeast(WorldModel world, Point target, EventScheduler scheduler) {
         if (Functions.adjacent(getPosition(), target)) {
-            System.out.print("Success?");
+            System.out.println("Success?");
             return true;
         }else{
             Point nextPos = nextPositionMrBeast(world, target);

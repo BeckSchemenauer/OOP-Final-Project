@@ -7,10 +7,10 @@ import processing.core.*;
 public final class VirtualWorld extends PApplet {
     private static String[] ARGS;
 
-    private static final int VIEW_WIDTH = 640;
-    private static final int VIEW_HEIGHT = 480;
-    private static final int TILE_WIDTH = 32;
-    private static final int TILE_HEIGHT = 32;
+    private static final int VIEW_WIDTH = 900;
+    private static final int VIEW_HEIGHT = 675;
+    private static final int TILE_WIDTH = 75;
+    private static final int TILE_HEIGHT = 75;
     private static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
     private static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
 
@@ -67,17 +67,17 @@ public final class VirtualWorld extends PApplet {
     // Be sure to refactor this method as appropriate
     public void mousePressed() {
         Point pressed = mouseToPoint();
-        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+        System.out.print("click at (" + pressed.getX() + ", " + pressed.getY() + ") ");
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent()) {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + " : " + ((Health)entity).getHealth());
+            if(entity instanceof Health) {System.out.print(entity.getId() + entity.getClass() + ": " + "Health: " + ((Health)entity).getHealth());}
         }
         else {
             Functions.findNearestMrBeast(world, pressed).onClicked(pressed);
         }
-
+        System.out.println();
     }
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
