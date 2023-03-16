@@ -17,6 +17,7 @@ public final class MrBeast extends Animate {
         this.actionPeriod = actionPeriod;
         clicked = false;
         target = null;
+        //YOOOOOOOOOOOOOOOOOOO
     }
 
     public void executeMrBeastActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
