@@ -17,6 +17,14 @@ public final class ImageStore {
         return images.getOrDefault(key, defaultImages);
     }
 
+    public List<PImage> getAllImages() {
+        List<PImage> list = new ArrayList<>();
+        for (Map.Entry<String, List<PImage>> imgs: images.entrySet()) {
+            list.addAll(imgs.getValue());
+        }
+        return list;
+    }
+
     public void loadImages(Scanner in, PApplet screen) {
         int lineNumber = 0;
         while (in.hasNextLine()) {
@@ -27,5 +35,15 @@ public final class ImageStore {
             }
             lineNumber++;
         }
+    }
+
+    public String toString() {
+        String str = null;
+        for (Map.Entry<String, List<PImage>> imgs: images.entrySet()) {
+            for (PImage img: imgs.getValue()) {
+                str = String.valueOf(img.height);
+            }
+        }
+        return str;
     }
 }

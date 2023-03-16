@@ -27,7 +27,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "(" + this.pos.getX() + "," + this.pos.getY() + ")";
+        return "(" + this.pos.x + "," + this.pos.y + ")";
     }
 
     @Override
@@ -44,4 +44,18 @@ public class Node {
     public int hashCode() {
         return pos.hashCode();
     }
+
+    public void setPrior(Node prior) {
+        this.prior = prior;
+    }
+
+    public void setG(int g) {
+        this.g = g;
+    }
+
+    public void setF(double f) {
+        this.f = f;
+    }
+
+    public int getH() {return h;}
 }
