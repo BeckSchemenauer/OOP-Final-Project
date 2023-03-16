@@ -27,8 +27,10 @@ public final class MrBeast extends Animate {
         }
 
         else if (moveToMrBeast(world, target, scheduler)) {
+            Entity sapling = Functions.createSapling(Functions.getSaplingKey() + "_" + target.toString(), target, imageStore.getImageList(Functions.getSaplingKey()), 0);
 
-            System.out.print("Success");
+            world.addEntity(sapling);
+            ((Animate)sapling).scheduleActions(scheduler, world, imageStore);
             offClicked();
         }
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);

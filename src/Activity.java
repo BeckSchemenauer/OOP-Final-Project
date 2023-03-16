@@ -14,8 +14,6 @@ public final class Activity extends Action{
     public void executeAction(EventScheduler scheduler) {
         if (getEntity() instanceof Plant) {
             ((Plant) getEntity()).executePlantActivity(world, imageStore, scheduler);
-        } else if (getEntity().getClass().equals(Fairy.class)) {
-            ((Fairy) getEntity()).executeFairyActivity(world, imageStore, scheduler);
         } else if (getEntity().getClass().equals(MrBeast.class)) {
             ((MrBeast) getEntity()).executeMrBeastActivity(world, imageStore, scheduler);
             //System.out.println("CASE MrBeast");

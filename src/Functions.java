@@ -48,11 +48,6 @@ public final class Functions {
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 0;
 
-    private static final String FAIRY_KEY = "fairy";
-    private static final int FAIRY_ANIMATION_PERIOD = 0;
-    private static final int FAIRY_ACTION_PERIOD = 1;
-    private static final int FAIRY_NUM_PROPERTIES = 2;
-
     private static final String MRBEAST_KEY = "mrbeast";
     private static final int MRBEAST_ANIMATION_PERIOD = 0;
     private static final int MRBEAST_ACTION_PERIOD = 1;
@@ -103,15 +98,6 @@ public final class Functions {
             world.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", DUDE_KEY, DUDE_NUM_PROPERTIES));
-        }
-    }
-
-    public static void parseFairy(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
-        if (properties.length == FAIRY_NUM_PROPERTIES) {
-            Entity entity = createFairy(id, pt, Double.parseDouble(properties[FAIRY_ACTION_PERIOD]), Double.parseDouble(properties[FAIRY_ANIMATION_PERIOD]), imageStore.getImageList(FAIRY_KEY));
-            world.tryAddEntity(entity);
-        }else{
-            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", FAIRY_KEY, FAIRY_NUM_PROPERTIES));
         }
     }
 
@@ -248,10 +234,6 @@ public final class Functions {
         return new Sapling(id, position, images, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
     }
 
-    public static Entity createFairy(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
-        return new Fairy(id, position, images, actionPeriod, animationPeriod);
-    }
-
     public static Entity createMrBeast(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
         System.out.println("Created MrBeast");
         return new MrBeast(id, position, images, actionPeriod, animationPeriod);
@@ -280,7 +262,6 @@ public final class Functions {
             switch (key) {
                 case Functions.OBSTACLE_KEY -> Functions.parseObstacle(world, properties, pt, id, imageStore);
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
-                case Functions.FAIRY_KEY -> Functions.parseFairy(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
                 case Functions.HOUSE_KEY -> Functions.parseHouse(world, properties, pt, id, imageStore);
                 case Functions.TREE_KEY -> Functions.parseTree(world, properties, pt, id, imageStore);

@@ -24,15 +24,6 @@ public class WorldTests {
     }
 
     @Test
-    public void testFairyAnimation() {
-        String sav = makeSave(1, 1, "fairy myfairy 0 0 0.100 100.0");
-        List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 1);
-
-        assertEquals(1, entities.size());
-        assertEquals("myfairy 0 0 10", entities.get(0));
-    }
-
-    @Test
     public void testObstacleAnimation() {
         String sav = makeSave(1, 1, "obstacle myobstacle 0 0 0.500");
         List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 8);
@@ -107,40 +98,12 @@ public class WorldTests {
     }
 
     @Test
-    public void testFairyPathing() {
-        String sav = makeSave(15, 20, "fairy myfairy 10 9 100.0 0.300", "obstacle  9 11 1.126", "obstacle  10 12 1.126", "obstacle  11 11 1.126", "stump  10 14", "stump  0 0", "house  10 8");
-        List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 5);
-
-
-        assertEquals(1, entities.size());
-        assertEquals("myfairy 10 11 0", entities.get(0));
-    }
-
-    @Test
     public void testSaplingIntoStump() {
         String sav = makeSave(2, 2, "dude  1 0 0.010 100.0 1", "sapling mysapling 0 0 0");
         List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 6);
 
         assertEquals(1, entities.size());
         assertEquals("stump_mysapling 0 0 0", entities.get(0));
-    }
-
-    @Test
-    public void testStumpIntoSapling() {
-        String sav = makeSave(2, 2, "fairy  1 0 100.0 0.100", "stump mystump 0 0");
-        List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 2);
-
-        assertEquals(1, entities.size());
-        assertEquals("sapling_mystump", entities.get(0).split(" ", 2)[0]);
-    }
-
-    @Test
-    public void testStumpIntoSaplingIntoTree() {
-        String sav = makeSave(2, 2, "fairy  1 0 100.0 0.100", "stump mystump 0 0");
-        List<String> entities = VirtualWorld.headlessMain(new String[]{sav}, 8);
-
-        assertEquals(1, entities.size());
-        assertEquals("tree_sapling_mystump", entities.get(0).split(" ", 2)[0]);
     }
 
     @Test
