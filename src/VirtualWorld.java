@@ -28,7 +28,7 @@ public final class VirtualWorld extends PApplet {
 
     private String loadFile = "world.sav";
     private long startTimeMillis = 0;
-    private double timeScale = .5;
+    private double timeScale = 1.0;
 
     private ImageStore imageStore;
     private WorldModel world;
@@ -70,7 +70,7 @@ public final class VirtualWorld extends PApplet {
     public void mousePressed() {
         Point pressed = mouseToPoint();
         System.out.print("\nclick at (" + pressed.getX() + ", " + pressed.getY() + ") ");
-        System.out.print(world.getOccupant(pressed).toString());
+        System.out.println(world.getOccupant(pressed).toString());
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
 
@@ -80,7 +80,7 @@ public final class VirtualWorld extends PApplet {
             if(entity instanceof Health) {System.out.print(entity.getId() + entity.getClass() + ": " + "Health: " + ((Health)entity).getHealth());}
         }
         else {
-            Functions.findNearestMrBeast(world, pressed).onClicked(pressed);
+            Functions.findNearestMrBeast(world, pressed).onClicked(world, pressed);
 
         }
         System.out.println();
