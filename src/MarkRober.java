@@ -41,9 +41,6 @@ public final class MarkRober extends Animate {
             return true;
         }else{
             Point nextPos = nextPositionMarkRober(world, target);
-            if (target.equals(getPosition()))
-                return false;
-
             if (!getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);
             }
