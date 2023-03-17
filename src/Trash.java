@@ -10,9 +10,7 @@ public class Trash extends Animate{
         this.actionPeriod = actionPeriod;
     }
     public void executeTrashActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        if (nextPositionTrash(world, imageStore, scheduler)) {
-
-        }
+        nextPositionTrash(world, imageStore, scheduler);
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
 
@@ -21,19 +19,18 @@ public class Trash extends Animate{
         super.scheduleActions(scheduler, world, imageStore);
     }
 
-    public boolean nextPositionTrash(WorldModel world, ImageStore imageStore,EventScheduler scheduler) {
+    public void nextPositionTrash(WorldModel world, ImageStore imageStore,EventScheduler scheduler) {
         Point down = new Point(getPosition().x, getPosition().y + 1);
         Point right = new Point(getPosition().x + 1, getPosition().y);
         Point up = new Point(getPosition().x, getPosition().y - 1);
 
-
         if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
-            if((int) (Math.random() * 10) == 5) {
+            if((int) (Math.random() * 10) ==5) {
                 world.swapEntity(this, world.getOccupancyCell(right));
             }
         }
         if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
-            if((int) (Math.random() * 20) == 5) {
+            if((int) (Math.random() * 15) == 5) {
                 world.swapEntity(this, world.getOccupancyCell(down));
             }
         }
@@ -42,7 +39,6 @@ public class Trash extends Animate{
                 world.swapEntity(this, world.getOccupancyCell(up));
             }
         }
-        return true;
     }
 
 }
