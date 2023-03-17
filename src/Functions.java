@@ -53,6 +53,11 @@ public final class Functions {
     private static final int MRBEAST_ACTION_PERIOD = 1;
     private static final int MRBEAST_NUM_PROPERTIES = 2;
 
+    private static final String MARKROBER_KEY = "markrober";
+    private static final int MARKROBER_ANIMATION_PERIOD = 0;
+    private static final int MARKROBER_ACTION_PERIOD = 1;
+    private static final int MARKROBER_NUM_PROPERTIES = 2;
+
     private static final String TRASH_KEY = "trash";
     private static final int TRASH_ANIMATION_PERIOD = 0;
     private static final int TRASH_ACTION_PERIOD = 1;
@@ -107,12 +112,22 @@ public final class Functions {
     }
 
     public static void parseMrBeast(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
-        System.out.println("ParseMrBeast");
+        //System.out.println("ParseMrBeast");
         if (properties.length == MRBEAST_NUM_PROPERTIES) {
             Entity entity = createMrBeast(id, pt, Double.parseDouble(properties[MRBEAST_ACTION_PERIOD]), Double.parseDouble(properties[MRBEAST_ANIMATION_PERIOD]), imageStore.getImageList(MRBEAST_KEY));
             world.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", MRBEAST_KEY, MRBEAST_NUM_PROPERTIES));
+        }
+    }
+
+    public static void parseMarkRober(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
+        //System.out.println("ParseMrBeast");
+        if (properties.length == MARKROBER_NUM_PROPERTIES) {
+            Entity entity = createMarkRober(id, pt, Double.parseDouble(properties[MARKROBER_ACTION_PERIOD]), Double.parseDouble(properties[MARKROBER_ANIMATION_PERIOD]), imageStore.getImageList(MARKROBER_KEY));
+            world.tryAddEntity(entity);
+        }else{
+            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", MARKROBER_KEY, MARKROBER_NUM_PROPERTIES));
         }
     }
 
@@ -196,6 +211,21 @@ public final class Functions {
         return nearest;
     }
 
+    public static MarkRober nearestMarkRober(List<MarkRober> entities, Point pos) {
+        MarkRober nearest = entities.get(0);
+        int nearestDistance = distanceSquared(nearest.getPosition(), pos);
+
+        for (MarkRober other : entities) {
+            int otherDistance = distanceSquared(other.getPosition(), pos);
+
+            if (otherDistance < nearestDistance) {
+                nearest = other;
+                nearestDistance = otherDistance;
+            }
+        }
+        return nearest;
+    }
+
     public static int distanceSquared(Point p1, Point p2) {
         int deltaX = p1.getX() - p2.getX();
         int deltaY = p1.getY() - p2.getY();
@@ -227,6 +257,16 @@ public final class Functions {
         return nearestMrBeast(ofType, pos);
     }
 
+    public static MarkRober findNearestMarkRober(WorldModel world, Point pos) {
+        List<MarkRober> ofType = new LinkedList<>();
+        for (Entity entity : world.getEntities()) {
+            if (entity.getClass() == MarkRober.class) {
+                ofType.add((MarkRober)entity);
+            }
+        }
+        return nearestMarkRober(ofType, pos);
+    }
+
     public static Entity createHouse(String id, Point position, List<PImage> images) {
         return new House(id, position, images);
     }
@@ -251,6 +291,11 @@ public final class Functions {
     public static Entity createMrBeast(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
         System.out.println("Created MrBeast");
         return new MrBeast(id, position, images, actionPeriod, animationPeriod);
+    }
+
+    public static Entity createMarkRober(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        System.out.println("Created MarkRober");
+        return new MarkRober(id, position, images, actionPeriod, animationPeriod);
     }
 
     public static Entity createTrash(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
@@ -281,6 +326,7 @@ public final class Functions {
                 case Functions.WATER_KEY -> Functions.parseWater(world, properties, pt, id, imageStore);
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
+                case Functions.MARKROBER_KEY -> Functions.parseMarkRober(world, properties, pt, id, imageStore);
                 case Functions.TRASH_KEY -> Functions.parseTrash(world, properties, pt, id, imageStore);
                 case Functions.HOUSE_KEY -> Functions.parseHouse(world, properties, pt, id, imageStore);
                 case Functions.TREE_KEY -> Functions.parseTree(world, properties, pt, id, imageStore);

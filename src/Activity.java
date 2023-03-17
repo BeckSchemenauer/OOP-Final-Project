@@ -16,6 +16,8 @@ public final class Activity extends Action{
             ((Plant) getEntity()).executePlantActivity(world, imageStore, scheduler);
         } else if (getEntity().getClass().equals(MrBeast.class)) {
             ((MrBeast) getEntity()).executeMrBeastActivity(world, imageStore, scheduler);
+        } else if (getEntity().getClass().equals(MarkRober.class)) {
+            ((MarkRober) getEntity()).executeMarkRoberActivity(world, imageStore, scheduler);
         } else if (getEntity().getClass().equals(Trash.class)) {
             ((Trash) getEntity()).executeTrashActivity(world, imageStore, scheduler);
         } else if (getEntity().getClass().equals(DudeNotFull.class)) {
