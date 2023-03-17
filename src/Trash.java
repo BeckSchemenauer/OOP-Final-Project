@@ -27,16 +27,12 @@ public class Trash extends Animate{
 
         if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
             if((int) (Math.random() * 10) == 5) {
-                world.getOccupancyCell(down).setPosition(getPosition());
-
-                world.moveEntity(scheduler, this, down);
+                world.swapEntity(this, world.getOccupancyCell(down));
             }
         }
         else if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
             if((int) (Math.random() * 10) == 5) {
-                world.getOccupancyCell(right).setPosition(getPosition());
-
-                world.moveEntity(scheduler, this, right);
+                world.swapEntity(this, world.getOccupancyCell(right));
             }
         }
         return true;

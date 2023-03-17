@@ -77,6 +77,13 @@ public final class WorldModel {
         }
     }
 
+    public void swapEntity(Entity entity1, Entity entity2) {
+        setOccupancyCell(entity1.getPosition(), entity2);
+        setOccupancyCell(entity2.getPosition(), entity1);
+        entity1.setPosition(entity2.getPosition());
+        entity2.setPosition(entity1.getPosition());
+    }
+
     public void removeEntity(EventScheduler scheduler, Entity entity) {
         scheduler.unscheduleAllEvents(entity);
         removeEntityAt(entity.getPosition());
