@@ -8,13 +8,16 @@ public final class Point {
 
     public final int y;
 
+    private int pathLen;
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+        pathLen = -1;
     }
 
     public String toString() {
-        return "(" + x + "," + y + ")";
+        return "(" + x + "," + y + ", ?" + pathLen + ")";
     }
 
     public boolean equals(Object other) {
@@ -37,5 +40,13 @@ public final class Point {
         result = result * 31 + x;
         result = result * 31 + y;
         return result;
+    }
+
+    public int getPathLen() {
+        return pathLen;
+    }
+
+    public void setPathLen(int pathLen) {
+        this.pathLen = pathLen;
     }
 }
