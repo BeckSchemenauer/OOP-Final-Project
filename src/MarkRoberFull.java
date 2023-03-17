@@ -8,11 +8,11 @@ import processing.core.PImage;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class MarkRober extends Animate {
+public final class MarkRoberFull extends Animate {
     private final double actionPeriod;
     private boolean clicked;
     private Entity target;
-    public MarkRober(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod) {
+    public MarkRoberFull(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod) {
         super(id, position, images, animationPeriod);
         this.actionPeriod = actionPeriod;
         clicked = false;
