@@ -24,13 +24,11 @@ public class Trash extends Animate{
         Point right = new Point(getPosition().x + 1, getPosition().y);
         Point up = new Point(getPosition().x, getPosition().y - 1);
 
-        if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
-            if((int) (Math.random() * 10) ==5) {
-                world.swapEntity(this, world.getOccupancyCell(right));
-            }
+        if(((int) (Math.random() * 10) ==5) && world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
+            world.swapEntity(this, world.getOccupancyCell(right));
         }
-        if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
-            if((int) (Math.random() * 15) == 5) {
+        else if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
+            if((int) (Math.random() * 10) == 5) {
                 world.swapEntity(this, world.getOccupancyCell(down));
             }
         }

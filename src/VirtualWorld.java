@@ -28,7 +28,7 @@ public final class VirtualWorld extends PApplet {
 
     private String loadFile = "world.sav";
     private long startTimeMillis = 0;
-    private double timeScale = 1.0;
+    private double timeScale = 1;
 
     private ImageStore imageStore;
     private WorldModel world;
