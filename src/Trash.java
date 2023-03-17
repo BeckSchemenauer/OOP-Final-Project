@@ -16,34 +16,30 @@ public class Trash extends Animate{
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
 
-//    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-//        scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
-//        super.scheduleActions(scheduler, world, imageStore);
-//    }
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+        scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
+        super.scheduleActions(scheduler, world, imageStore);
+    }
 
     public boolean nextPositionTrash(WorldModel world, ImageStore imageStore,EventScheduler scheduler) {
         Point down = new Point(getPosition().x, getPosition().y + 1);
         Point right = new Point(getPosition().x + 1, getPosition().y);
+        Point up = new Point(getPosition().x, getPosition().y - 1);
 
-        if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
+
+        if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
             if((int) (Math.random() * 10) == 5) {
-                Entity water = Functions.createWater(Functions.getWaterKey() + "_" + getPosition().toString(), getPosition(), Functions.getWaterAnimationPeriod(),imageStore.getImageList(Functions.getWaterKey()));
-
-                world.addEntity(water);
-                ((Animate)water).scheduleActions(scheduler, world, imageStore);
-
-                world.moveEntity(scheduler, this, down);
+                world.swapEntity(this, world.getOccupancyCell(right));
             }
         }
-        else if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
-            if((int) (Math.random() * 10) == 5) {
-                Entity water = Functions.createWater(Functions.getWaterKey() + "_" + getPosition().toString(), getPosition(), Functions.getWaterAnimationPeriod(),imageStore.getImageList(Functions.getWaterKey()));
-
-                world.addEntity(water);
-                ((Animate)water).scheduleActions(scheduler, world, imageStore);
-
-                world.moveEntity(scheduler, this, right);
-                System.out.println("Made it here");
+        if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
+            if((int) (Math.random() * 20) == 5) {
+                world.swapEntity(this, world.getOccupancyCell(down));
+            }
+        }
+        else if(world.withinBounds(up) && world.getOccupancyCell(up) != null && world.getOccupancyCell(up).getClass() == Water.class) {
+            if((int) (Math.random() * 100) == 5) {
+                world.swapEntity(this, world.getOccupancyCell(up));
             }
         }
         return true;
