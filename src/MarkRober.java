@@ -11,7 +11,7 @@ import processing.core.PImage;
 public final class MarkRober extends Animate {
     private final double actionPeriod;
     private boolean clicked;
-    private Point target;
+    private Entity target;
     public MarkRober(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod) {
         super(id, position, images, animationPeriod);
         this.actionPeriod = actionPeriod;
@@ -21,11 +21,10 @@ public final class MarkRober extends Animate {
 
     public void executeMarkRoberActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         if (!clicked){
-            target = getPosition(); // find something else for MrBeast to do
             if(!wander(world, scheduler)) System.out.println("MrBeast is stuck!");
         }
 
-        else if (world.getOccupancyCell(target).getClass() == Trash.class && moveToMarkRober(world, target, scheduler)) {
+        else if (world.getOccupancyCell(target.getPosition()).getClass() == Trash.class && moveToMarkRober(world, target.getPosition(), scheduler)) {
             //remove trash
             offClicked();
         }
@@ -76,7 +75,7 @@ public final class MarkRober extends Animate {
         return true;
     }
 
-    public void onClicked(Point pressed) {
+    public void onClicked(Entity pressed) {
         clicked = true;
         target = pressed;
     }

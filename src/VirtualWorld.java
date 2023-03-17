@@ -76,7 +76,7 @@ public final class VirtualWorld extends PApplet {
 
         if (entityOptional.isPresent()) {
             Entity entity = entityOptional.get();
-            if(entity instanceof Trash) {Functions.findNearestMarkRober(world, pressed).onClicked(pressed);}
+            if(entity instanceof Trash) {Functions.findNearestMarkRober(world, pressed).onClicked(entity);}
             if(entity instanceof Health) {System.out.print(entity.getId() + entity.getClass() + ": " + "Health: " + ((Health)entity).getHealth());}
         }
         else {
