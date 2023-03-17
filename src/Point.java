@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 /**
  * A simple class representing a location in 2D space.
  */
@@ -26,7 +28,9 @@ public final class Point {
     public int getY() {
         return y;
     }
-
+    public double distance(Point p2){
+        return Math.sqrt(Functions.distanceSquared(this, p2));
+    }
 
     public int hashCode() {
         int result = 17;

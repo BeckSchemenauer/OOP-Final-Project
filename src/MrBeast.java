@@ -2,7 +2,9 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+
 import processing.core.PImage;
+
 
 /**
  * An entity that exists in the world. See EntityKind for the
@@ -22,14 +24,17 @@ public final class MrBeast extends Animate {
         targetQ = null;
     }
 
+
     public void executeMrBeastActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         if (!clicked){
             target = getPosition(); // find something else for MrBeast to do
             if(!wander(world, scheduler)) System.out.println("MrBeast is stuck!");
         }
 
+
         else if (moveToMrBeast(world, target, scheduler)) {
             Entity sapling = Functions.createSapling(Functions.getSaplingKey() + "_" + target.toString(), target, imageStore.getImageList(Functions.getSaplingKey()), 0);
+
 
             world.addEntity(sapling);
             ((Animate)sapling).scheduleActions(scheduler, world, imageStore);
@@ -38,10 +43,12 @@ public final class MrBeast extends Animate {
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
 
+
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
         super.scheduleActions(scheduler, world, imageStore);
     }
+
 
     public boolean moveToMrBeast(WorldModel world, Point target, EventScheduler scheduler) {
         if (Functions.adjacent(getPosition(), target)) {
@@ -51,12 +58,14 @@ public final class MrBeast extends Animate {
             if (target.equals(getPosition()))
                 return false;
 
+
             if (!getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);
             }
             return false;
         }
     }
+
 
     public Point nextPositionMrBeast(WorldModel world, Point destPos) {
         PathingStrategy strat = new AStarPathingStrategy();
@@ -67,13 +76,16 @@ public final class MrBeast extends Animate {
                 Functions::adjacent,
                 PathingStrategy.CARDINAL_NEIGHBORS);
 
+
         if(path == null)
             return getPosition();
         return path.get(0);
     }
 
+
     private boolean wander(WorldModel world, EventScheduler scheduler) {
         List<Point> neighbors = PathingStrategy.CARDINAL_NEIGHBORS.apply(getPosition()).filter(p1 -> world.withinBounds(p1) && !world.isOccupied(p1)).collect(Collectors.toList());
+
 
         if(neighbors.isEmpty()) return false;
         int randIndex = (int) (Math.random() * neighbors.size());
@@ -81,6 +93,7 @@ public final class MrBeast extends Animate {
             world.moveEntity(scheduler, this, neighbors.get(randIndex));
         return true;
     }
+
 
     public void onClicked(Point pressed) {
         clicked = true;
@@ -90,5 +103,4 @@ public final class MrBeast extends Animate {
         clicked = false;
         target = null;
     }
-
 }
