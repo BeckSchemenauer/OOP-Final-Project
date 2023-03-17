@@ -22,7 +22,7 @@ public final class MrBeast extends Animate {
 
     public void executeMrBeastActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         if (targetQ.isEmpty()){
-            if(!wander(world, scheduler)) System.out.println("MrBeast is stuck!");
+            wander(world, scheduler);
         }
 
         else if (moveToMrBeast(world, targetQ, scheduler)) {
@@ -46,6 +46,7 @@ public final class MrBeast extends Animate {
             return true;
         }else{
             updateQueue(world);
+            if(targetQ.isEmpty()) return false;
             System.out.println("\n" + targetQ);
             System.out.println(targetQ.peek());
             Point nextPos = nextPositionMrBeast(world, targetQ.peek());
