@@ -62,6 +62,11 @@ public final class Functions {
     private static final int TRASH_ANIMATION_PERIOD = 0;
     private static final int TRASH_ACTION_PERIOD = 1;
     private static final int TRASH_NUM_PROPERTIES = 2;
+    private static final String WINDMILL_KEY = "windmill";
+    private static final int WINDMILL_ANIMATION_PERIOD = 0;
+    private static final int WINDMILL_ACTION_PERIOD = 1;
+    private static final int WINDMILL_NUM_PROPERTIES = 2;
+
 
     private static final String TREE_KEY = "tree";
     private static final int TREE_ANIMATION_PERIOD = 0;
@@ -137,6 +142,15 @@ public final class Functions {
             world.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", TRASH_KEY, TRASH_NUM_PROPERTIES));
+        }
+    }
+
+    public static void parseWindmill(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
+        if (properties.length == WINDMILL_NUM_PROPERTIES) {
+            Entity entity = createWindmill(id, pt, Double.parseDouble(properties[WINDMILL_ANIMATION_PERIOD]), imageStore.getImageList(WINDMILL_KEY));
+            world.tryAddEntity(entity);
+        }else{
+            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", WINDMILL_KEY, WINDMILL_NUM_PROPERTIES));
         }
     }
 
@@ -275,6 +289,10 @@ public final class Functions {
         return new Water(id, position, images, animationPeriod);
     }
 
+    public static Entity createWindmill(String id, Point position, double animationPeriod, List<PImage> images) {
+        return new Windmill(id, position, images, animationPeriod);
+    }
+
     public static Entity createTree(String id, Point position, double actionPeriod, double animationPeriod, int health, List<PImage> images) {
         return new Tree(id, position, images, actionPeriod, animationPeriod, health);
     }
@@ -324,6 +342,7 @@ public final class Functions {
 
             switch (key) {
                 case Functions.WATER_KEY -> Functions.parseWater(world, properties, pt, id, imageStore);
+                case Functions.WINDMILL_KEY -> Functions.parseWindmill(world, properties, pt, id, imageStore);
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
                 case Functions.MARKROBER_KEY -> Functions.parseMarkRober(world, properties, pt, id, imageStore);

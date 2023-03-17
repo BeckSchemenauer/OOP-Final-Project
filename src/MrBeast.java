@@ -12,11 +12,14 @@ public final class MrBeast extends Animate {
     private final double actionPeriod;
     private boolean clicked;
     private Point target;
+
+    private Queue<Point>  targetQ;
     public MrBeast(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod) {
         super(id, position, images, animationPeriod);
         this.actionPeriod = actionPeriod;
         clicked = false;
         target = null;
+        targetQ = null;
     }
 
     public void executeMrBeastActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
