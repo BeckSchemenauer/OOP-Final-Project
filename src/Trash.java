@@ -10,9 +10,7 @@ public class Trash extends Animate{
         this.actionPeriod = actionPeriod;
     }
     public void executeTrashActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        if (nextPositionTrash(world, imageStore, scheduler)) {
-
-        }
+        nextPositionTrash(world, imageStore, scheduler);
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
 
