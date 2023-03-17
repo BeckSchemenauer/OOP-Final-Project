@@ -5,9 +5,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 class AStarPathingStrategy
         implements PathingStrategy
 {
+
+
 
 
     public List<Point> computePath(Point start, Point end,
@@ -21,6 +24,7 @@ class AStarPathingStrategy
         HashSet<Node> closedList = new HashSet<>();
         openList.add(new Node(start, null, end));
         Node finalN = null;
+
 
         whileLoop:
         while(openList.size() > 0) {
@@ -40,10 +44,12 @@ class AStarPathingStrategy
                     if(!openList.contains(temp))
                         openList.add(temp);
 
+
                 }
             }
             closedList.add(current);
         }
+
 
         if(finalN == null) return null;
         while(!finalN.getPos().equals(start)) {

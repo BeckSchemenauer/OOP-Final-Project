@@ -46,9 +46,9 @@ public final class MrBeast extends Animate {
             return true;
         }else{
             updateQueue(world);
+            System.out.println("\n" + targetQ);
+            System.out.println(targetQ.peek());
             Point nextPos = nextPositionMrBeast(world, targetQ.peek());
-            if (targetQ.peek().equals(getPosition()))
-                return false;
 
             if (!getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);
@@ -104,8 +104,7 @@ public final class MrBeast extends Animate {
 
         PathingStrategy strat = new AStarPathingStrategy();
         for(Point p: targetQ) {
-            System.out.print("updating queue: ");
-            System.out.println(targetQ);
+
             List<Point> path = strat.computePath(
                     getPosition(),
                     p,
@@ -113,10 +112,14 @@ public final class MrBeast extends Animate {
                     Functions::adjacent,
                     PathingStrategy.CARDINAL_NEIGHBORS);
             Point p1 = p;
-            p1.setPathLen(path.size());
-            if(!temp.contains(p1))
+
+            if(path != null && !temp.contains(p1)) {
+                p1.setPathLen(path.size());
                 temp.add(p1);
+            }
         }
+        System.out.print("updated queue: ");
+        System.out.println(getPosition() + "----" + temp);
         targetQ = temp;
     }
 
