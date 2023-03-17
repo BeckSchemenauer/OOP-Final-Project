@@ -16,10 +16,10 @@ public class Trash extends Animate{
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
 
-//    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-//        scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
-//        super.scheduleActions(scheduler, world, imageStore);
-//    }
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+        scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
+        super.scheduleActions(scheduler, world, imageStore);
+    }
 
     public boolean nextPositionTrash(WorldModel world, ImageStore imageStore,EventScheduler scheduler) {
         Point down = new Point(getPosition().x, getPosition().y + 1);
@@ -27,23 +27,16 @@ public class Trash extends Animate{
 
         if(world.withinBounds(down) && world.getOccupancyCell(down) != null && world.getOccupancyCell(down).getClass() == Water.class) {
             if((int) (Math.random() * 10) == 5) {
-                Entity water = Functions.createWater(Functions.getWaterKey() + "_" + getPosition().toString(), getPosition(), Functions.getWaterAnimationPeriod(),imageStore.getImageList(Functions.getWaterKey()));
-
-                world.addEntity(water);
-                ((Animate)water).scheduleActions(scheduler, world, imageStore);
+                world.getOccupancyCell(down).setPosition(getPosition());
 
                 world.moveEntity(scheduler, this, down);
             }
         }
         else if(world.withinBounds(right) && world.getOccupancyCell(right) != null && world.getOccupancyCell(right).getClass() == Water.class) {
             if((int) (Math.random() * 10) == 5) {
-                Entity water = Functions.createWater(Functions.getWaterKey() + "_" + getPosition().toString(), getPosition(), Functions.getWaterAnimationPeriod(),imageStore.getImageList(Functions.getWaterKey()));
-
-                world.addEntity(water);
-                ((Animate)water).scheduleActions(scheduler, world, imageStore);
+                world.getOccupancyCell(right).setPosition(getPosition());
 
                 world.moveEntity(scheduler, this, right);
-                System.out.println("Made it here");
             }
         }
         return true;
