@@ -17,6 +17,7 @@ public abstract class Plant extends Health {
             world.removeEntity(scheduler, this);
 
             world.addEntity(stump);
+            if(world.getBackgroundCell(stump.getPosition()).getId().contains(Functions.getSwampKey())) ((Stump)stump).spawnSwamp(world, stump.getPosition(), imageStore);
 
             return true;
         }
