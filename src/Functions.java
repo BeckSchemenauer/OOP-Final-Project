@@ -19,6 +19,7 @@ public final class Functions {
 
     private static final List<String> PATH_KEYS = new ArrayList<>(Arrays.asList("bridge", "dirt", "dirt_horiz", "dirt_vert_left", "dirt_vert_right", "dirt_bot_left_corner", "dirt_bot_right_up", "dirt_vert_left_bot"));
 
+    private static final String SWAMP_KEY = "swamp";
     private static final double SAPLING_ACTION_ANIMATION_PERIOD = 1.000; // have to be in sync since grows and gains health at same time
     private static final int SAPLING_HEALTH_LIMIT = 5;
 
@@ -443,4 +444,6 @@ public final class Functions {
     public static int getTreeHealthMin() {
         return TREE_HEALTH_MIN;
     }
+
+    public static String getSwampKey() {return SWAMP_KEY;}
 }

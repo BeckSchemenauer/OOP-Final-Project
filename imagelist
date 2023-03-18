@@ -1,5 +1,6 @@
 house images/house.png 255 255 255 0
 grass images/grass.png
+swamp images/swamp.png
 flowers images/flowers.png
 background_default images/none.bmp
 dirt images/dirt.bmp
