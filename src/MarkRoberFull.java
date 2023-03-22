@@ -17,21 +17,26 @@ public final class MarkRoberFull extends Animate {
         this.actionPeriod = actionPeriod;
         clicked = false;
         target = null;
+        System.out.println("full is made");
     }
 
-    public void executeMarkRoberActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        if (!clicked){
-            if(!wander(world, scheduler)) System.out.println("MrBeast is stuck!");
-        }
+    public void executeMarkRoberFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        Optional<Entity> target = Functions.findNearest(world, getPosition(), new ArrayList<>(List.of(Windmill.class)));
 
-        else if (world.getOccupancyCell(target.getPosition()).getClass() == Trash.class && moveToMarkRober(world, target.getPosition(), scheduler)) {
-            //remove trash
-            world.swapEntity(target, world.getOccupancyCell(new Point(5, 8)));
-            offClicked();
+        if (target.isPresent() && moveToMarkRober(world, target.get().getPosition(), scheduler)) {
+            transform(world, scheduler, imageStore);
+        } else {
+            scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
         }
-        scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
     }
+    public void transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        Entity mark = Functions.createMarkRober(getId(), getPosition(), actionPeriod, getAnimationPeriod(), imageStore.getImageList(Functions.MARKROBER_KEY));
 
+        world.removeEntity(scheduler, this);
+
+        world.addEntity(mark);
+        ((Animate)mark).scheduleActions(scheduler, world, imageStore);
+    }
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this, createActivityAction(this, world, imageStore), actionPeriod);
         super.scheduleActions(scheduler, world, imageStore);
@@ -61,25 +66,6 @@ public final class MarkRoberFull extends Animate {
         if(path == null)
             return getPosition();
         return path.get(0);
-    }
-
-    private boolean wander(WorldModel world, EventScheduler scheduler) {
-        List<Point> neighbors = PathingStrategy.CARDINAL_NEIGHBORS.apply(getPosition()).filter(p1 -> world.withinBounds(p1) && !world.isOccupied(p1)).collect(Collectors.toList());
-
-        if(neighbors.isEmpty()) return false;
-        int randIndex = (int) (Math.random() * neighbors.size());
-        if((int) (Math.random() * 10) == 5)
-            world.moveEntity(scheduler, this, neighbors.get(randIndex));
-        return true;
-    }
-
-    public void onClicked(Entity pressed) {
-        clicked = true;
-        target = pressed;
-    }
-    public void offClicked() {
-        clicked = false;
-        target = null;
     }
 
 }

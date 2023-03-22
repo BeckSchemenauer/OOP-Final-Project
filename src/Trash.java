@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 
 public class Trash extends Animate{
     private final double actionPeriod;
+    private int pathLen;
     public Trash(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod) {
         super(id, position, images, animationPeriod);
         this.actionPeriod = actionPeriod;
+        pathLen = -1;
     }
     public void executeTrashActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         nextPositionTrash(world, imageStore, scheduler);
@@ -38,5 +40,11 @@ public class Trash extends Animate{
             }
         }
     }
+    public int getPathLen() {
+        return pathLen;
+    }
 
+    public void setPathLen(int pathLen) {
+        this.pathLen = pathLen;
+    }
 }

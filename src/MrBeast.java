@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import processing.core.PImage;
@@ -46,9 +45,10 @@ public final class MrBeast extends Animate {
             return true;
         }else{
             updateQueue(world);
-            if(targetQ.isEmpty()) return false;
-            System.out.println("\n" + targetQ);
-            System.out.println(targetQ.peek());
+            if(targetQ.isEmpty())
+                return false;
+            //System.out.println("\n" + targetQ);
+            //System.out.println(targetQ.peek());
             Point nextPos = nextPositionMrBeast(world, targetQ.peek());
 
             if (!getPosition().equals(nextPos)) {
@@ -72,17 +72,16 @@ public final class MrBeast extends Animate {
         return path.get(0);
     }
 
-    private boolean wander(WorldModel world, EventScheduler scheduler) {
+    private void wander(WorldModel world, EventScheduler scheduler) {
         List<Point> neighbors = PathingStrategy.CARDINAL_NEIGHBORS.apply(getPosition()).filter(p1 -> world.withinBounds(p1) && !world.isOccupied(p1)).collect(Collectors.toList());
 
-        if(neighbors.isEmpty()) return false;
+        if(neighbors.isEmpty()) return;
         int randIndex = (int) (Math.random() * neighbors.size());
         if((int) (Math.random() * 10) == 5)
             world.moveEntity(scheduler, this, neighbors.get(randIndex));
-        return true;
     }
 
-    public boolean onClicked(WorldModel world, Point pressed) {
+    public void onClicked(WorldModel world, Point pressed) {
         PathingStrategy strat = new AStarPathingStrategy();
         List<Point> path = strat.computePath(
                 getPosition(),
@@ -90,12 +89,11 @@ public final class MrBeast extends Animate {
                 p1 -> world.withinBounds(p1) && !world.isOccupied(p1),
                 Functions::adjacent,
                 PathingStrategy.CARDINAL_NEIGHBORS);
-        if(path == null) return false;
+        if(path == null) return;
         pressed.setPathLen(path.size());
         targetQ.add(pressed);
-        System.out.println("added point: " + pressed);
-        System.out.println(getPosition() + "--" + targetQ);
-        return true;
+        //System.out.println("added point: " + pressed);
+        //System.out.println(getPosition() + "--" + targetQ);
     }
 
 

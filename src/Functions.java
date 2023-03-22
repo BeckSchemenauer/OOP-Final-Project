@@ -54,10 +54,15 @@ public final class Functions {
     private static final int MRBEAST_ACTION_PERIOD = 1;
     private static final int MRBEAST_NUM_PROPERTIES = 2;
 
-    private static final String MARKROBER_KEY = "markrober";
+    public static final String MARKROBER_KEY = "markrober";
     private static final int MARKROBER_ANIMATION_PERIOD = 0;
     private static final int MARKROBER_ACTION_PERIOD = 1;
     private static final int MARKROBER_NUM_PROPERTIES = 2;
+
+    public static final String MARKROBERFULL_KEY = "markroberfull";
+    private static final int MARKROBERFULL_ANIMATION_PERIOD = 0;
+    private static final int MARKROBERFULL_ACTION_PERIOD = 1;
+    private static final int MARKROBERFULL_NUM_PROPERTIES = 2;
 
     private static final String TRASH_KEY = "trash";
     private static final int TRASH_ANIMATION_PERIOD = 0;
@@ -134,6 +139,15 @@ public final class Functions {
             world.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", MARKROBER_KEY, MARKROBER_NUM_PROPERTIES));
+        }
+    }
+
+    public static void parseMarkRoberFull(WorldModel world, String[] properties, Point pt, String id, ImageStore imageStore) {
+        if (properties.length == MARKROBERFULL_NUM_PROPERTIES) {
+            Entity entity = createMarkRoberFull(id, pt, Double.parseDouble(properties[MARKROBERFULL_ACTION_PERIOD]), Double.parseDouble(properties[MARKROBERFULL_ANIMATION_PERIOD]), imageStore.getImageList(MARKROBERFULL_KEY));
+            world.tryAddEntity(entity);
+        }else{
+            throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", MARKROBERFULL_KEY, MARKROBERFULL_NUM_PROPERTIES));
         }
     }
 
@@ -317,6 +331,10 @@ public final class Functions {
         return new MarkRober(id, position, images, actionPeriod, animationPeriod);
     }
 
+    public static Entity createMarkRoberFull(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        return new MarkRoberFull(id, position, images, actionPeriod, animationPeriod);
+    }
+
     public static Entity createTrash(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
         return new Trash(id, position, images, actionPeriod, animationPeriod);
     }
@@ -347,6 +365,7 @@ public final class Functions {
                 case Functions.DUDE_KEY -> Functions.parseDude(world, properties, pt, id, imageStore);
                 case Functions.MRBEAST_KEY -> Functions.parseMrBeast(world, properties, pt, id, imageStore);
                 case Functions.MARKROBER_KEY -> Functions.parseMarkRober(world, properties, pt, id, imageStore);
+                case Functions.MARKROBERFULL_KEY -> Functions.parseMarkRoberFull(world, properties, pt, id, imageStore);
                 case Functions.TRASH_KEY -> Functions.parseTrash(world, properties, pt, id, imageStore);
                 case Functions.HOUSE_KEY -> Functions.parseHouse(world, properties, pt, id, imageStore);
                 case Functions.TREE_KEY -> Functions.parseTree(world, properties, pt, id, imageStore);
