@@ -73,10 +73,12 @@ public final class VirtualWorld extends PApplet {
         System.out.println(world.getOccupant(pressed).toString());
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
-
+        boolean MarkExists = true;
+        MarkRober nearestMark = Functions.findNearestMarkRober(world, pressed);
+        if(nearestMark == null){MarkExists = false;};
         if (entityOptional.isPresent()) {
             Entity entity = entityOptional.get();
-            if(entity instanceof Trash) {Functions.findNearestMarkRober(world, pressed).onClicked(world, pressed);}
+            if(entity instanceof Trash && MarkExists) {nearestMark.onClicked(world, pressed);}
             if(entity instanceof Health) {System.out.print(entity.getId() + entity.getClass() + ": " + "Health: " + ((Health)entity).getHealth());}
             if(entity instanceof Stump) { ((Stump)entity).spawnSwamp(world, pressed, imageStore);}
         }

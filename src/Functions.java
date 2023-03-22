@@ -241,6 +241,7 @@ public final class Functions {
     }
 
     public static MarkRober nearestMarkRober(List<MarkRober> entities, Point pos) {
+        if(entities == null || entities.size()==0) {return null;}
         MarkRober nearest = entities.get(0);
         int nearestDistance = distanceSquared(nearest.getPosition(), pos);
 
@@ -287,6 +288,7 @@ public final class Functions {
     }
 
     public static MarkRober findNearestMarkRober(WorldModel world, Point pos) {
+
         List<MarkRober> ofType = new LinkedList<>();
         for (Entity entity : world.getEntities()) {
             if (entity.getClass() == MarkRober.class) {
