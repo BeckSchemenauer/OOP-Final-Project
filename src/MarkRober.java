@@ -25,8 +25,18 @@ public final class MarkRober extends Animate {
         }
 
         else if (world.getOccupancyCell(targetQ.peek().getPosition()).getClass() == Trash.class && moveToMarkRober(world, targetQ, scheduler)) {
-            world.swapEntity(targetQ.peek(), world.getOccupancyCell(new Point(5, 8)));
-            System.out.println(targetQ.poll() + " picked up");
+            Point source = new Point(5, 8);
+            if(world.isOccupied(source)){
+                source = new Point(5, 7);
+                if(world.isOccupied(source)) {
+                    source = new Point(6, 7);
+                    if(world.isOccupied(source)) {
+                        source = new Point(7, 7);
+                    }
+                }
+            }
+            world.swapEntity(targetQ.poll(), world.getOccupancyCell(source));
+            //System.out.println(targetQ.poll() + " picked up");
             resourceCount++;
             if(resourceCount>4)transform(world, scheduler, imageStore);
         }
